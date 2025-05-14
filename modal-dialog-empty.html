@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccessU Accessible JavaScript</title>
+  <style>
+     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; font-size:1.2em;}
+
+     #legacyDialog{
+      height:300px;
+      width:300px;
+      position:absolute;
+      top:200px;
+      left:40%;
+      background:lightgrey;
+      display:none;
+     }
+
+  </style>
+</head>
+
+<body>
+  <h1>Modal Dialog test</h1>
+
+  <!-- Non-HTML dialog (legacy) -->
+  <button id="legacyOpen">Open the legacy dialog</button>
+  <div id="legacyDialog">
+    <p>This is a legacy modal Dialog</p>
+      <form>
+        <label>Input 1
+          <input type="text">
+        </label>
+        <fieldset>
+          <label>
+            <input type="checkbox">
+            Check 1
+          </label>
+          <label>
+            <input type="checkbox">
+            Check 2
+          </label>
+          <label>
+            <input type="checkbox">
+            Check 3
+          </label>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+      <button id="legacyClose">Close</button>
+  </div>
+
+  <!-- HTML Dialog open button -->
+   <button id="htmlOpen">Open the HTML dialog</button>
+  <!-- HTML Dialog element -->
+  <dialog id="htmlDialog">
+    <p>This is an HTML modal Dialog</p>
+    <form>
+      <label>Input 1
+        <input type="text">
+      </label>
+      <fieldset>
+        <label>
+          <input type="checkbox">
+          Check 1
+        </label>
+        <label>
+          <input type="checkbox">
+          Check 2
+        </label>
+        <label>
+          <input type="checkbox">
+          Check 3
+        </label>
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    <button id="htmlClose">Close</button>
+  </dialog>
+
+  <script>
+
+   
+// Legacy dialog implementation
+    const legacyOpen = document.getElementById("legacyOpen");
+    const legacyDialog = document.getElementById("legacyDialog");
+    let returnEl;
+    // Write an event listener for legacyOpen. 
+    // Show the dialog. 
+    // Set the returnEl. 
+    // Initiate the keyboardTrap
+    
+    // Write an event listener for legacyClose
+    // hide legacyDialog
+    // set focus on the returnEl
+
+
+    // Write a function to trap keyboard focus inside the modal
+    function keyboardTrap(activeEl){
+      // spacing in attribute selector needs to match HTML exactly.
+      const allElements = "button:not([style='display:none;']), [href], input, select, textarea, [tabindex]:not([tabindex='1'])";
+
+      // Get an array of allElements
+      // What's the first element? Store to a variable
+      // What's the last element? Store to a variable
+
+      firstModalEl.focus();
+      document.addEventListener("keydown", function(){
+        if(event.keyCode == 9){
+          if(document.activeElement === firstModalEl && event.shiftKey){
+            // ???
+          } 
+          if(document.activeElement === lastModalEl && !event.shiftKey) {
+            // ???
+          }
+        }
+      })
+    }
+
+
+
+    // Add an event listener for escape key and close modal, return focus to launch button
+  
+
+// HTML dialog! 
+// built in keyboard trap and escape key
+    const htmlDialog = document.getElementById("htmlDialog");
+    const htmlOpen = document.getElementById("htmlOpen");
+    const htmlClose = document.getElementById("htmlClose");
+  
+  // Add an eventlistener for htmlOpen
+
+  // Add an event listener for htmlClose 
+  
+   
+
+  </script>
+</body>
+</html>
