@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reduce Motion: AccessU Accessible JavaScript</title>
+  <style>
+     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; font-size:1.2em;}
+
+     button{
+      font-size:1rem;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+     }
+
+     .button-scale{
+      background:blue;
+      color:white;
+      padding: 30px;
+      transition-property:padding;
+      transition-duration:0.5s;
+
+     }
+     .button-scale:hover{
+      background:black;
+      padding:150px;
+     }
+     .spin{
+      height:400px;
+      width:400px;
+      border-radius:50%;
+      background: linear-gradient(#fff, #000);
+     }
+     /* Adding this class to the .spin element will spin it!  */
+     .spin-animate{
+      -webkit-animation:spin 4s linear infinite;
+      -moz-animation:spin 4s linear infinite;
+      animation:spin 4s linear infinite;
+     }
+
+    @-moz-keyframes spin { 
+        100% { -moz-transform: rotate(360deg); } 
+    }
+    @-webkit-keyframes spin { 
+        100% { -webkit-transform: rotate(360deg); } 
+    }
+    @keyframes spin {
+      100% { 
+          -webkit-transform: rotate(360deg); 
+          transform:rotate(360deg); 
+      } 
+    }
+    
+      /* Write CSS media query for reduced motion - Progressive enhancement!! */
+      @media(prefers-reduced-motion){
+        .button-scale{
+          transition:none;
+        }
+        .button-scale:hover{
+          padding:30px;
+        }
+      }
+  </style>
+</head>
+
+<body>
+  <h1>Reduce motion test</h1>
+
+  <button class="button-scale">This button scales on hover</button>
+
+  <details style="margin-top:200px;">
+    <summary>Spinning awful gradient circle </summary>
+    <div class="spin"></div>
+  </details>
+  
+ 
+
+  <script>
+
+    // Add a class to animate the button
+    const scaleButton = document.querySelector(".button-scale");
+
+    // MatchMedia to sense reduce motion stored in variables 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const noMotionPreference = window.matchMedia('(prefers-reduced-motion: no-preference)');
+    
+    // Conditional statement - if reducedMotion is true, stop gif. 
+    const spinDiv = document.querySelector(".spin");
+    if(reducedMotion.matches == true){
+      console.log("reduced motion is true");
+    } else {
+      console.log("reduced motion is false");
+      spinDiv.classList.add("spin-animate");
+    }
+
+  </script>
+</body>
+</html>

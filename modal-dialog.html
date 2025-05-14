@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccessU Accessible JavaScript</title>
+  <style>
+     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; font-size:1.2em;}
+
+     #legacyDialog{
+      height:300px;
+      width:300px;
+      position:absolute;
+      top:200px;
+      left:40%;
+      background:lightgrey;
+      display:none;
+     }
+
+  </style>
+</head>
+
+<body>
+  <h1>Modal Dialog test</h1>
+
+  <!-- Non-HTML dialog (legacy) -->
+  <button id="legacyOpen">Open the legacy dialog</button>
+  <div id="legacyDialog">
+    <p>This is a legacy modal Dialog</p>
+      <form>
+        <label>Input 1
+          <input type="text">
+        </label>
+        <fieldset>
+          <label>
+            <input type="checkbox">
+            Check 1
+          </label>
+          <label>
+            <input type="checkbox">
+            Check 2
+          </label>
+          <label>
+            <input type="checkbox">
+            Check 3
+          </label>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+      <button id="legacyClose">Close</button>
+  </div>
+
+  <!-- HTML Dialog open button -->
+   <button id="htmlOpen">Open the HTML dialog</button>
+  <!-- HTML Dialog element -->
+  <dialog id="htmlDialog">
+    <p>This is an HTML modal Dialog</p>
+    <form>
+      <label>Input 1
+        <input type="text">
+      </label>
+      <fieldset>
+        <label>
+          <input type="checkbox">
+          Check 1
+        </label>
+        <label>
+          <input type="checkbox">
+          Check 2
+        </label>
+        <label>
+          <input type="checkbox">
+          Check 3
+        </label>
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    <button id="htmlClose">Close</button>
+  </dialog>
+
+  <script>
+
+   
+// Legacy dialog implementation
+    const legacyOpen = document.getElementById("legacyOpen");
+    const legacyDialog = document.getElementById("legacyDialog");
+    let returnEl;
+    // Write a function that opens the modal window
+    legacyOpen.addEventListener("click", function(){
+      legacyDialog.style.display = "block";
+      returnEl = event.target;
+      keyboardTrap(legacyDialog);
+    });
+
+    legacyClose.addEventListener("click", function(){
+      legacyDialog.style.display = "none";
+      returnEl.focus();
+    });
+    // Write a function to trap keyboard focus inside the modal
+    function keyboardTrap(activeEl){
+      // spacing in attribute selector needs to match HTML exactly.
+      const allElements = "button:not([style='display:none;']), [href], input, select, textarea, [tabindex]:not([tabindex='1'])";
+      const modalElements = activeEl.querySelectorAll(allElements);
+      // console.log(modalElements, typeof modalElements)
+      const firstModalEl = modalElements[0];
+      const lastModalEl = modalElements[modalElements.length - 1];
+      firstModalEl.focus();
+      document.addEventListener("keydown", function(){
+        if(event.keyCode == 9){
+          if(document.activeElement === firstModalEl && event.shiftKey){
+            lastModalEl.focus();
+            event.preventDefault();
+            return false;
+            
+          } 
+          if(document.activeElement === lastModalEl && !event.shiftKey) {
+            firstModalEl.focus();
+            event.preventDefault();
+            return false;
+          }
+        }
+      })
+    }
+
+
+
+    // Add an event listener for escape key and close modal, return focus to launch button
+  
+
+// HTML dialog! 
+// built in keyboard trap and escape key
+    const htmlDialog = document.getElementById("htmlDialog");
+    const htmlOpen = document.getElementById("htmlOpen");
+    const htmlClose = document.getElementById("htmlClose");
+  
+  // Add click event to the modal open button
+    htmlOpen.addEventListener("click", () =>{
+      htmlDialog.showModal();
+    });
+
+    htmlClose.addEventListener("click", () =>{
+      htmlDialog.close();
+    });
+
+   
+
+  </script>
+</body>
+</html>
